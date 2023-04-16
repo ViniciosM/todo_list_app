@@ -1,6 +1,6 @@
-import '../models/task_model.dart';
+import '../../models/task_model.dart';
 
-abstract class TasksLocalDataDatasource {
+abstract class TasksLocalDatasource {
   Future<void> createTask({required TaskModel task});
   Future<void> deleteTask({required String idTask});
   Future<List<TaskModel>> loadTasks();

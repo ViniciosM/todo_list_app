@@ -20,18 +20,30 @@ dependencies:
   equatable: ^2.0.5
   dartz: ^0.10.1
   google_fonts: ^4.0.3
+  
+  # Injection
+  get_it: ^7.2.0
 
   # State Management
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
 
-  # Local Data
-  shared_preferences: ^2.1.0
+  # Local Data (NoSQL)
   sqflite: ^2.2.6
+  isar: ^2.5.0
+  isar_flutter_libs: ^2.5.0
+  path_provider: ^2.0.12
+
+  # Utils
+  validatorless: ^1.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # Isa
+  isar_generator: ^2.5.0
+  build_runner: ^2.1.11
 
 
   flutter_lints: ^2.0.0

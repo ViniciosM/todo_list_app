@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_app/app/core/ui/app_config_ui.dart';
+import 'package:todo_list_app/app/presentation/pages/create_task/create_task_page.dart';
 import 'app/presentation/pages/home/home_page.dart';
+import 'injection_container.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(const MyApp());
 }
 
@@ -10,10 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'To Do List',
-      home: HomePage(),
+      theme: AppConfigUI.theme,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/create_task': (context) => const CreateTaskPage(),
+      },
     );
   }
 }
