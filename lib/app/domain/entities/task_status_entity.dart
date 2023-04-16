@@ -1,0 +1,1 @@
+enum TaskStatusEntity { pending, done }
