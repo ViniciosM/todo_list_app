@@ -13,7 +13,7 @@ Structure </br>
         ├── entities </br>
         ├── repositories </br>
         ├── usecases </br>             
-    ├── data
+    ├── data </br>
         ├── models </br>
         ├── repositories </br> 
         ├── datasources </br>
