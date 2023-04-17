@@ -3,6 +3,7 @@ import 'package:todo_list_app/app/data/models/task_model.dart';
 import 'package:todo_list_app/app/domain/entities/task_entity.dart';
 import 'package:todo_list_app/app/core/exceptions/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:todo_list_app/app/domain/entities/task_status.dart';
 import 'package:todo_list_app/app/domain/repositories/task_repository.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
@@ -35,7 +36,8 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<Either<Failure, List<TaskEntity>>> loadTasks() async {
     try {
-      final result = await tasksLocalDatasource.loadTasks();
+      var result = await tasksLocalDatasource.loadTasks();
+
       return Right(result);
     } on Failure {
       return Left(Failure(message: '[REPOSITORY] - Could not load tasks'));
@@ -43,15 +45,16 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateStatusTask(
-      {required TaskEntity task}) async {
-    final taskModel = TaskModel.fromEntity(task);
+  Future<Either<Failure, void>> filterByStatusTask(
+      {required TaskStatus status}) async {
+    //final taskModel = TaskModel.fromEntity(ta);
     try {
       final result =
-          await tasksLocalDatasource.updateStatusTask(task: taskModel);
+          await tasksLocalDatasource.filterByStatusTask(status: status);
       return Right(result);
     } on Failure {
-      return Left(Failure(message: '[REPOSITORY] - Could not delete task'));
+      return Left(
+          Failure(message: '[REPOSITORY] - Could not filter tasks by status'));
     }
   }
 }

@@ -1,7 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/app/core/ui/consts/todo_sizes.dart';
 import 'package:todo_list_app/app/data/models/task_model.dart';
-import 'package:todo_list_app/app/domain/entities/task_status_entity.dart';
+import 'package:todo_list_app/app/domain/entities/task_status.dart';
 import 'package:todo_list_app/app/presentation/pages/create_task/controller/create_task_controller.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 import '../../../core/ui/consts/todo_colors.dart';
 import '../../../core/ui/widgets/todo_button.dart';
+import '../../../core/ui/widgets/todo_button_loader.dart';
 import '../../../core/ui/widgets/todo_label.dart';
 
 class CreateTaskPage extends StatefulWidget {
@@ -83,18 +86,27 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                   const SizedBox(
                     height: TodoSizes.size40,
                   ),
-                  TodoButton(
-                    label: 'Save task',
-                    onPressed: () {
-                      final formValid =
-                          _formKey.currentState?.validate() ?? false;
+                  SizedBox(
+                    height: TodoSizes.size45,
+                    child: TodoButtonWithLoader<CreateTaskController,
+                        CreateTaskStatus>(
+                      bloc: sl<CreateTaskController>(),
+                      selector: (state) => state == CreateTaskStatus.loading,
+                      label: 'Save task',
+                      onPressed: () async {
+                        final formValid =
+                            _formKey.currentState?.validate() ?? false;
 
-                      if (formValid) {
-                        TaskModel task =
-                            TaskModel(title: _titleEC.text, isDone: false);
-                        sl<CreateTaskController>().createTask(taskModel: task);
-                      }
-                    },
+                        if (formValid) {
+                          TaskModel task = TaskModel(
+                              id: Random().nextInt(100),
+                              title: _titleEC.text,
+                              status: TaskStatus.pending);
+                          await sl<CreateTaskController>()
+                              .createTask(taskModel: task);
+                        }
+                      },
+                    ),
                   )
                 ],
               ),

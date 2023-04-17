@@ -1,12 +1,15 @@
-import 'package:equatable/equatable.dart';
+import 'package:isar/isar.dart';
+import 'package:todo_list_app/app/domain/entities/task_status.dart';
 
-class TaskEntity extends Equatable {
-  final String? id;
-  final String title;
-  final bool isDone;
+part 'task_entity.g.dart';
 
-  const TaskEntity({this.id, required this.title, required this.isDone});
+@Collection()
+class TaskEntity {
+  Id? id = Isar.autoIncrement;
+  String title;
 
-  @override
-  List<Object> get props => [title, isDone];
+  @enumerated
+  TaskStatus status = TaskStatus.pending;
+
+  TaskEntity({this.id, required this.title, required this.status});
 }
