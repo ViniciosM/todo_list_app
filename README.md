@@ -6,7 +6,7 @@ Todo List App with Clean Architecture, using Isar as a local database and BloC/C
 Structure </br>
  </br>
     ├── core </br>
-        ├── ui </br>
+       &nbsp; ├── ui </br>
         ├── exceptions </br>
         ├── database </br>
     ├── domain </br>
