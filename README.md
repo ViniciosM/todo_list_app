@@ -5,7 +5,7 @@ Current step: Implementing Presentation.
 
 Structure
  .
-    ├── core </br?
+    ├── core </br>
         ├── ui
         ├── exceptions
         ├── database
