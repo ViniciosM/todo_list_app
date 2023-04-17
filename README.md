@@ -12,7 +12,7 @@ Structure </br>
     ├── domain </br>
         ├── entities </br>
         ├── repositories </br>
-        ├── usecases </br>             
+        ├── usecases             
     ├── data </br>
         ├── models </br>
         ├── repositories </br> 
