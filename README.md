@@ -1,6 +1,6 @@
 # todo_list_app
 Todo List App with Clean Architecture, using Isar as a local database and BloC/Cubit as a State Management.
-Current step: Implementing Presentation.
+<br/>Current step: Implementing Presentation.
 
 
 Structure </br>
