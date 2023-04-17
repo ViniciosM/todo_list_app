@@ -3,8 +3,8 @@ Todo List App with Clean Architecture, using Isar as a local database and BloC/C
 Current step: Implementing Presentation.
 
 
-Structure </br?
- </br?.
+Structure </br>
+ </br>.
     ├── core </br>
         ├── ui </br>
         ├── exceptions </br>
@@ -14,7 +14,7 @@ Structure </br?
         ├── repositories </br>
         ├── usecases </br>             
     ├── data
-        <p> ├── models </p> </br>
+        ├── models </br>
         ├── repositories </br> 
         ├── datasources </br>
     ├── presentation </br>
