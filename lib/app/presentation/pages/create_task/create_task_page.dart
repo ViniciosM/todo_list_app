@@ -7,10 +7,8 @@ import 'package:todo_list_app/app/domain/entities/task_status.dart';
 import 'package:todo_list_app/app/presentation/pages/create_task/controller/create_task_controller.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../injection_container.dart';
 import '../../../core/ui/consts/todo_colors.dart';
-import '../../../core/ui/widgets/todo_button.dart';
 import '../../../core/ui/widgets/todo_button_loader.dart';
 import '../../../core/ui/widgets/todo_label.dart';
 
@@ -84,10 +82,11 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                     validator: Validatorless.required('Title is required.'),
                   ),
                   const SizedBox(
-                    height: TodoSizes.size40,
+                    height: TodoSizes.size30,
                   ),
                   SizedBox(
-                    height: TodoSizes.size45,
+                    height: TodoSizes.size50,
+                    width: MediaQuery.of(context).size.width,
                     child: TodoButtonWithLoader<CreateTaskController,
                         CreateTaskStatus>(
                       bloc: sl<CreateTaskController>(),
