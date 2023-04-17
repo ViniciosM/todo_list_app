@@ -4,24 +4,24 @@ Current step: Implementing Presentation.
 
 
 Structure
--- app
-  -- core
-      -- ui
-      -- exceptions
-      -- database
-      -- utils
-  -- data
-      -- models
-      -- repositories
-      -- datasources
-  -- domain
-      -- entities
-      -- repositories
-      -- usecases
-  -- presentation
-      -- pages
-          -- components
-      -- controllers
+<br />-- app
+ <br /> -- core
+     <br /> -- ui
+     <br /> -- exceptions
+    <br />  -- database
+    <br />  -- utils
+ <br /> -- data
+     <br /> -- models
+     <br /> -- repositories
+     <br /> -- datasources
+ <br /> -- domain
+     <br /> -- entities
+     <br /> -- repositories
+    <br />  -- usecases
+ <br /> -- presentation
+     <br /> -- pages
+    <br />      -- components
+    <br />  -- controllers
 
 
 Isar
