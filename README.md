@@ -4,7 +4,7 @@ Current step: Implementing Presentation.
 
 
 Structure </br>
- </br>.
+ </br>
     ├── core </br>
         ├── ui </br>
         ├── exceptions </br>
