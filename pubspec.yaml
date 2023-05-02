@@ -28,14 +28,16 @@ dependencies:
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
 
-  # Local Data (NoSQL)
-  sqflite: ^2.2.6
+  # Local Data
   isar: ^3.1.0
   isar_flutter_libs: ^3.1.0
   path_provider: ^2.0.14
 
   # Utils
   validatorless: ^1.2.3
+
+  # Animation
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:isar/isar.dart';
 import 'package:todo_list_app/app/domain/entities/task_status.dart';
 

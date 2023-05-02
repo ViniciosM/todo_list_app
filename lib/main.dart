@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/app/core/ui/app_config_ui.dart';
+import 'package:todo_list_app/app/core/theme/app_config_ui.dart';
+import 'package:todo_list_app/app/presentation/pages/create_task/controller/create_task_controller.dart';
 import 'package:todo_list_app/app/presentation/pages/create_task/create_task_page.dart';
+import 'package:todo_list_app/app/presentation/pages/home/controller/home_controller.dart';
+import 'package:todo_list_app/injection_container.dart';
 import 'app/presentation/pages/home/home_page.dart';
 import 'injection_container.dart' as di;
 
@@ -21,8 +24,12 @@ class MyApp extends StatelessWidget {
       theme: AppConfigUI.theme,
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomePage(),
-        '/create_task': (context) => const CreateTaskPage(),
+        '/': (context) => HomePage(
+              homeController: sl<HomeController>()..loadTasks(),
+            ),
+        '/create_task': (context) => CreateTaskPage(
+              createTaskController: sl<CreateTaskController>(),
+            ),
       },
     );
   }

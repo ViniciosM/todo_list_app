@@ -1,19 +1,20 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/app/core/ui/consts/todo_sizes.dart';
+import 'package:todo_list_app/app/core/state/base_state.dart';
+import 'package:todo_list_app/app/core/theme/consts/todo_sizes.dart';
+import 'package:todo_list_app/app/core/theme/widgets/todo_button.dart';
 import 'package:todo_list_app/app/data/models/task_model.dart';
+import 'package:todo_list_app/app/domain/entities/task_entity.dart';
 import 'package:todo_list_app/app/domain/entities/task_status.dart';
 import 'package:todo_list_app/app/presentation/pages/create_task/controller/create_task_controller.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../injection_container.dart';
-import '../../../core/ui/consts/todo_colors.dart';
-import '../../../core/ui/widgets/todo_button_loader.dart';
-import '../../../core/ui/widgets/todo_label.dart';
+import '../../../core/theme/consts/todo_colors.dart';
+import '../../../core/theme/widgets/todo_label.dart';
 
 class CreateTaskPage extends StatefulWidget {
-  const CreateTaskPage({super.key});
+  const CreateTaskPage({required this.createTaskController, super.key});
+
+  final CreateTaskController createTaskController;
 
   @override
   State<CreateTaskPage> createState() => _CreateTaskPageState();
@@ -37,19 +38,14 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CreateTaskController, CreateTaskStatus>(
-      bloc: sl<CreateTaskController>(),
+    return BlocListener<CreateTaskController, BaseState>(
+      bloc: widget.createTaskController,
       listener: (context, state) {
-        switch (state) {
-          case CreateTaskStatus.success:
-            debugPrint('Task created!');
-            Navigator.pop(context);
-            break;
-          case CreateTaskStatus.failure:
-            debugPrint('Failed to save task!');
-            break;
-          default:
-            break;
+        if (state is ErrorState) {
+          debugPrint('Task error!');
+        } else if (state is SuccessState) {
+          debugPrint('Task created!');
+          Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
         }
       },
       child: Scaffold(
@@ -84,29 +80,20 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                   const SizedBox(
                     height: TodoSizes.size30,
                   ),
-                  SizedBox(
-                    height: TodoSizes.size50,
-                    width: MediaQuery.of(context).size.width,
-                    child: TodoButtonWithLoader<CreateTaskController,
-                        CreateTaskStatus>(
-                      bloc: sl<CreateTaskController>(),
-                      selector: (state) => state == CreateTaskStatus.loading,
-                      label: 'Save task',
+                  TodoButton(
                       onPressed: () async {
                         final formValid =
                             _formKey.currentState?.validate() ?? false;
 
                         if (formValid) {
-                          TaskModel task = TaskModel(
-                              id: Random().nextInt(100),
-                              title: _titleEC.text,
-                              status: TaskStatus.pending);
-                          await sl<CreateTaskController>()
-                              .createTask(taskModel: task);
+                          TaskEntity taskEntity = TaskEntity(
+                              title: _titleEC.text, status: TaskStatus.pending);
+
+                          await widget.createTaskController.createTask(
+                              taskModel: TaskModel.fromEntity(taskEntity));
                         }
                       },
-                    ),
-                  )
+                      label: 'Create task'),
                 ],
               ),
             ),

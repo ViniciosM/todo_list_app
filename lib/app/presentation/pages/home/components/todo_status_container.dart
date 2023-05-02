@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/app/core/ui/consts/todo_colors.dart';
-import 'package:todo_list_app/app/core/ui/widgets/todo_label.dart';
+import 'package:todo_list_app/app/core/theme/consts/todo_colors.dart';
+import 'package:todo_list_app/app/core/theme/widgets/todo_label.dart';
 
 class TodoStatusContainer extends StatelessWidget {
   const TodoStatusContainer({Key? key}) : super(key: key);

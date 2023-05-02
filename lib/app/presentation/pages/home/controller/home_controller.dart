@@ -1,61 +1,29 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:todo_list_app/app/core/generics/usecase/usecase.dart';
+import 'package:todo_list_app/app/core/state/base_state.dart';
 import 'package:todo_list_app/app/domain/entities/task_status.dart';
-import 'package:todo_list_app/app/domain/usecases/task/load_tasks_usecase.dart';
-import 'package:todo_list_app/app/domain/usecases/task/update_status_task_usecase.dart';
-
+import 'package:todo_list_app/app/domain/usecases/task/load/load_tasks_usecase.dart';
 import '../../../../data/models/task_model.dart';
 
 part 'home_state.dart';
 
-class HomeController extends Cubit<HomeState> {
+class HomeController extends Cubit<BaseState> {
   final LoadTasksUsecase _loadTasksUsecase;
-  final UpdateStatusTaskUsecase _updateStatusTaskUsecase;
 
-  HomeController(
-      {required LoadTasksUsecase loadTasksUsecase,
-      required UpdateStatusTaskUsecase updateStatusTaskUsecase})
-      : _loadTasksUsecase = loadTasksUsecase,
-        _updateStatusTaskUsecase = updateStatusTaskUsecase,
-        super(HomeState.initial());
+  HomeController(this._loadTasksUsecase) : super(const EmptyState());
 
   Future<void> loadTasks() async {
-    try {
-      emit(state.copyWith(status: HomeStatus.loading));
-      final tasks = await _loadTasksUsecase.call(NoParams());
-
-      List<TaskModel> listTasks = [];
-
-      tasks.fold(
-        (failure) => emit(state.copyWith(status: HomeStatus.failure)),
-        (response) {
-          for (var task in response) {
-            listTasks.add(TaskModel.fromEntity(task));
-          }
-          emit(state.copyWith(status: HomeStatus.complete, tasks: listTasks));
-        },
-      );
-    } catch (e, s) {
-      log('Error when load tasks', error: e, stackTrace: s);
-      emit(state.copyWith(status: HomeStatus.failure));
+    emit(const LoadingState());
+    List<TaskModel> listTasks = [];
+    await Future<void>.delayed(const Duration(seconds: 2));
+    var result = await _loadTasksUsecase.call();
+    if (result.isSuccess) {
+      for (var taskEntity in result.getSuccessData) {
+        listTasks.add(TaskModel.fromEntity(taskEntity));
+      }
+      emit(SuccessState(listTasks));
+    } else {
+      emit(ErrorState(result.getErrorData.message));
     }
   }
-
-  // Future<void> filter(TaskStatus status) async {
-  //   emit(state.copyWith(status: HomeStatus.loading, projects: []));
-  //   final tasks = await _updateStatusTaskUsecase.call(Params(status: status));
-  //   emit(state.copyWith(
-  //       status: HomeStatus.complete, tasks: tasks, taskStatus: status));
-  // }
-
-  // Future<void> updateList() async {
-  //   if (state.status == HomeStatus.complete) {
-  //     filter(state.projectFilter);
-  //   } else {
-  //     filter(ProjectStatus.em_andamento);
-  //   }
-  // }
 }

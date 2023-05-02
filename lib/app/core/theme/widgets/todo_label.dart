@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_list_app/app/core/theme/consts/todo_colors.dart';
 
 class TodoLabel extends StatelessWidget {
   const TodoLabel(
@@ -11,6 +12,8 @@ class TodoLabel extends StatelessWidget {
       this.textAlign = TextAlign.left,
       this.textOverflow = TextOverflow.ellipsis,
       this.letterSpacing = 0.0,
+      this.textDecoration = TextDecoration.none,
+      this.decorationColor = TodoColors.greyColor,
       super.key});
 
   final String text;
@@ -21,6 +24,8 @@ class TodoLabel extends StatelessWidget {
   final TextOverflow textOverflow;
   final int maxLines;
   final double letterSpacing;
+  final TextDecoration textDecoration;
+  final Color decorationColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +36,8 @@ class TodoLabel extends StatelessWidget {
         fontWeight: fontWeight,
         color: color,
         letterSpacing: letterSpacing,
+        decoration: textDecoration,
+        decorationColor: decorationColor,
       ),
       maxLines: maxLines,
       textAlign: textAlign,

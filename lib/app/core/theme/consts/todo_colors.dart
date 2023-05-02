@@ -7,6 +7,7 @@ class TodoColors {
   static const Color black = Color(0xFF000000);
   static const Color neutralColor = Color(0XFFDFE9F2);
   static const Color darkColor = Color.fromARGB(255, 54, 54, 54);
+  static const Color greyColor = Color.fromARGB(255, 148, 148, 148);
   static const Color backgroundColor = Color(0XFFF3FFFF);
   static const Color errorColor = Color.fromARGB(255, 196, 46, 46);
 }
